@@ -13,7 +13,7 @@ placesRouter.post('/create', (req, res, next) => {
     type,
     name,
     location: {
-      coordinates: [longitude, latitude]
+      coordinates: [latitude, longitude]
     }
   })
     .then(place => {

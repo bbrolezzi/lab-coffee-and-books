@@ -7,8 +7,8 @@ const Places = require('./../models/place');
 
 router.get('/', (req, res, next) => {
   Places.find()
-    .then(place => {
-      res.render('home', { place });
+    .then(places => {
+      res.render('home', { places });
     })
     .catch(error => {
       next(error);
