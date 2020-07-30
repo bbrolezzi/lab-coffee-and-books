@@ -1,0 +1,54 @@
+<h1>Restaurant create</h1>
+
+<form method="POST">
+  <select name='type'>
+  <option value="coffee_shop">Coffee Shop</option>
+  <option value="bookstore">Bookstore</option>
+  </select>
+  <label for="name-input">Place Name</label>
+  <input id="name-input" type="text" placeholder="Name" name="name">
+
+  <label for="latitude-input">Place Latitude</label>
+  <input id="latitude-input" type="text" placeholder="Latitude" name="latitude">
+  
+  <label for="longitude-input">Place Longitude</label>
+  <input id="longitude-input" type="text" placeholder="Longitude" name="longitude">
+
+  <div id="map-container"></div>
+
+  <button>Create Your Boring Place</button>
+</form>
+
+<script>
+  function init () {
+    const mapContainerElement = document.getElementById('map-container');
+    const map = new window.google.maps.Map(mapContainerElement, {
+      center: {
+        lat: 38.75,
+        lng: -9.15
+      },
+      zoom: 11
+    });
+    let marker;
+    const latitudeInputElement = document.getElementById('latitude-input');
+    const longitudeInputElement = document.getElementById('longitude-input');
+    map.addListener('click', event => {
+      const latitude = event.latLng.lat();
+      const longitude = event.latLng.lng();
+      if (marker) {
+        marker.setMap(null);
+      }
+      marker = new window.google.maps.Marker({
+        map,
+        position: {
+          lat: latitude,
+          lng: longitude
+        }
+      });
+      latitudeInputElement.value = latitude;
+      longitudeInputElement.value = longitude;
+    });
+  }
+</script>
+
+{{> mapscript}}
